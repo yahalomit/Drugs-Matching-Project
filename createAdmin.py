@@ -9,6 +9,7 @@ import time
 from PyQt6.QtWidgets import QApplication, QMainWindow,QTableWidgetItem,QPushButton,QComboBox,QMessageBox, QFileDialog
 from PyQt6.QtCore import Qt,QRunnable, QThreadPool, QDate, QTime, QDateTime, QFileInfo
 from PyQt6 import uic, QtGui
+from PyQt6.QtGui import QPixmap
 
 import DB.DataBase
 
@@ -28,6 +29,9 @@ class createAdminWindow(QMainWindow):
         self.passwordLineEdit.setMaxLength(12)
         self.confPassordLineEdit.setMaxLength(12)
 
+
+        pixmap = QPixmap("media/pharmacist-logo.jpg")
+        self.label_6.setPixmap(pixmap)
 
         self.createAdminBtn.clicked.connect(self.clicked_createAdminBtn)
 

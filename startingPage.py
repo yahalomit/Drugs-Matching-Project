@@ -9,6 +9,8 @@ import time
 from PyQt6.QtWidgets import QApplication, QMainWindow,QTableWidgetItem,QPushButton,QComboBox,QMessageBox, QFileDialog
 from PyQt6.QtCore import Qt,QRunnable, QThreadPool, QDate, QTime, QDateTime, QFileInfo
 from PyQt6 import uic, QtGui
+from PyQt6.QtGui import QPixmap
+
 
 class AdminWindow(QMainWindow):
     def __init__(self):
@@ -18,6 +20,9 @@ class AdminWindow(QMainWindow):
         UI_File_Path = os.path.join(script_path, "GUIui/main.ui")
         uic.loadUi(UI_File_Path, self)
         self.show()
+
+        pixmap = QPixmap("media/warining-logo.jpg")
+        self.label_4.setPixmap(pixmap)
 
 
 if __name__ == "__main__":
