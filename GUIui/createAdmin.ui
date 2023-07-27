@@ -264,10 +264,10 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>20</y>
-      <width>351</width>
-      <height>491</height>
+      <x>370</x>
+      <y>60</y>
+      <width>381</width>
+      <height>401</height>
      </rect>
     </property>
     <property name="text">
@@ -276,8 +276,8 @@
     <property name="pixmap">
      <pixmap>media/pharmacist-logo.jpg</pixmap>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

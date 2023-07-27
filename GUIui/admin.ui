@@ -29,8 +29,16 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="helloLable">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -170,7 +178,7 @@
     <property name="title">
      <string>Edit Data</string>
     </property>
-    <addaction name="actionCrete_new_Admin"/>
+    <addaction name="actionCreate_new_Admin"/>
     <addaction name="actionAdd_New_Medication"/>
    </widget>
    <widget class="QMenu" name="menuAccess_Data">
@@ -185,7 +193,7 @@
    <addaction name="menuAccess_Data"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionCrete_new_Admin">
+  <action name="actionCreate_new_Admin">
    <property name="text">
     <string>Crete new Admin</string>
    </property>
