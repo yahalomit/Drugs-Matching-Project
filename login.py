@@ -9,7 +9,6 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QPushBu
     QFileDialog, QLineEdit
 from PyQt6.QtCore import Qt,QRunnable, QThreadPool, QDate, QTime, QDateTime, QFileInfo
 from PyQt6 import uic, QtGui
-from PyQt6.QtGui import QPixmap
 import DB.DataBase
 
 
@@ -22,10 +21,8 @@ class LoginWindow(QMainWindow):
         uic.loadUi(UI_File_Path, self)
         self.show()
 
-        pixmap = QPixmap("media/pharmeci-logo.png")
-        self.label_3.setPixmap(pixmap)
-
         self.passwordLineEdit.setEchoMode(QLineEdit.EchoMode.Password)
+
 
         self.submitBtn.clicked.connect(self.submitBtn_clicked)
     def submitBtn_clicked(self):

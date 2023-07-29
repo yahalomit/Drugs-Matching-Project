@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Qt\bioFinal\GUIui\main.ui'
+# Form implementation generated from reading ui file 'c:\Qt\bioFinal\GUI\main.ui'
 #
 # Created by: PyQt6 UI code generator 6.5.1
 #
@@ -136,9 +136,9 @@ class Ui_MainWindow(object):
         self.label_3.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(parent=self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(60, 450, 81, 71))
+        self.label_4.setGeometry(QtCore.QRect(60, 450, 71, 61))
         self.label_4.setText("")
-        self.label_4.setPixmap(QtGui.QPixmap("c:\\Qt\\bioFinal\\GUIui\\media/warining-logo.jpg"))
+        self.label_4.setPixmap(QtGui.QPixmap("c:\\Qt\\bioFinal\\GUI\\media/warining-logo.jpg"))
         self.label_4.setScaledContents(True)
         self.label_4.setObjectName("label_4")
         MainWindow.setCentralWidget(self.centralwidget)
