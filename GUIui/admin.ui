@@ -130,7 +130,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="viewInfoButton">
        <property name="font">
         <font>
          <pointsize>14</pointsize>
@@ -148,7 +148,7 @@
       <widget class="QTextBrowser" name="textBrowser"/>
      </item>
      <item>
-      <widget class="QPushButton" name="adminExtract1Btn">
+      <widget class="QPushButton" name="exportBtn">
        <property name="font">
         <font>
          <pointsize>14</pointsize>
