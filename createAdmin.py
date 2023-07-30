@@ -6,7 +6,7 @@ import os
 import sys
 import time
 
-from PyQt6.QtWidgets import QApplication, QMainWindow,QTableWidgetItem,QPushButton,QComboBox,QMessageBox, QFileDialog
+from PyQt6.QtWidgets import QApplication, QMainWindow,QTableWidgetItem,QPushButton,QComboBox,QMessageBox, QFileDialog, QLineEdit
 from PyQt6.QtCore import Qt,QRunnable, QThreadPool, QDate, QTime, QDateTime, QFileInfo
 from PyQt6 import uic, QtGui
 from PyQt6.QtGui import QPixmap
@@ -32,6 +32,9 @@ class createAdminWindow(QMainWindow):
 
         pixmap = QPixmap("media/pharmacist-logo.jpg")
         self.label_6.setPixmap(pixmap)
+
+        self.passwordLineEdit.setEchoMode(QLineEdit.EchoMode.Password)
+        self.confPassordLineEdit.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.createAdminBtn.clicked.connect(self.clicked_createAdminBtn)
 
@@ -68,10 +71,29 @@ class createAdminWindow(QMainWindow):
                 msgBox.setText("Passord and confirmantion are not identical")
                 msgBox.setWindowTitle("Something went wrong")
                 msgBox.exec()
+            elif DB.DataBase.checkAdminData(str(self.idLineEdit.text()), str(self.licenseLineEdit.text())) != True:
+                result = DB.DataBase.checkAdminData(str(self.idLineEdit.text()), str(self.licenseLineEdit.text()))
+                msgBox = QMessageBox()
+                msgBox.setIcon(QMessageBox.Icon.Critical)
+                msgBox.setText(result + " is already exist")
+                msgBox.setWindowTitle("Something went wrong")
+                msgBox.exec()
             else:
-                DB.DataBase.createNewAdmin(str(self.nameLineEdit.text()), str(self.lastNameLineEdit.text()), str(self.idLineEdit.text())
-                                    ,str(self.emailLineEdit.text()), str(self.licenseLineEdit.text()), str(self.passwordLineEdit.text()))
-                self.close()
+                result = DB.DataBase.createNewAdmin(str(self.nameLineEdit.text()), str(self.lastNameLineEdit.text()), str(self.idLineEdit.text())
+                                                    , str(self.emailLineEdit.text()), str(self.licenseLineEdit.text()), str(self.passwordLineEdit.text()))
+                if result != None:
+                    msgBox = QMessageBox()
+                    msgBox.setIcon(QMessageBox.Icon.Critical)
+                    msgBox.setText(result)
+                    msgBox.setWindowTitle("Something went wrong")
+                    msgBox.exec()
+                else:
+                    msgBox = QMessageBox()
+                    msgBox.setIcon(QMessageBox.Icon.Critical)
+                    msgBox.setText("New admin is created")
+                    msgBox.setWindowTitle("Succeed")
+                    msgBox.exec()
+                    self.close()
         else:
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Icon.Critical)

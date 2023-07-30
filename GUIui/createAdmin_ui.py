@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Qt\bioFinal\GUI\createAdmin.ui'
+# Form implementation generated from reading ui file 'c:\Qt\bioFinal\GUIui\createAdmin.ui'
 #
 # Created by: PyQt6 UI code generator 6.5.1
 #
@@ -133,10 +133,10 @@ class Ui_createAdminWindow(object):
         self.createAdminBtn.setObjectName("createAdminBtn")
         self.formLayout.setWidget(9, QtWidgets.QFormLayout.ItemRole.FieldRole, self.createAdminBtn)
         self.label_6 = QtWidgets.QLabel(parent=self.centralwidget)
-        self.label_6.setGeometry(QtCore.QRect(370, 60, 381, 401))
+        self.label_6.setGeometry(QtCore.QRect(390, 20, 351, 491))
         self.label_6.setText("")
-        self.label_6.setPixmap(QtGui.QPixmap("c:\\Qt\\bioFinal\\GUI\\media/pharmacist-logo.jpg"))
-        self.label_6.setScaledContents(True)
+        self.label_6.setPixmap(QtGui.QPixmap("c:\\Qt\\bioFinal\\GUIui\\media/pharmacist-logo.jpg"))
+        self.label_6.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignTop)
         self.label_6.setObjectName("label_6")
         createAdminWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(parent=createAdminWindow)
