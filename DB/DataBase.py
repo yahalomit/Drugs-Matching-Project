@@ -117,3 +117,67 @@ def getMedicationInfo(commertialName):
                                      'Allergens and Restrictions': m['allergens'], 'Menner of Cunsumption': m['cunsumption'], 'Recommended Dosage' : m['dosage'],
                                      'Menner of Storage' : m['storage']}
     return None
+
+def saveContactLettersToDB(firstName, lastName, email, phoneNumber, letter, contactPreference):
+    today = DB.Config.date.today()
+    contact_id = DB.Config.random.randint(100000,999999)
+
+    letter_data = {
+        "first name": firstName,
+        "last name": lastName,
+        "email": email,
+        "phone number": phoneNumber,
+        "content" : letter,
+        "contact preference": contactPreference,
+        "Date" : str(today)
+    }
+
+    contact_ref = DB.Config.db.collection("contact_us").document(str(contact_id))
+    contact_ref.set(letter_data)
+
+
+def getMessages():
+    messagesDataList = []
+    messages_ref = DB.Config.db.collection('contact_us')
+    messages = messages_ref.get()
+    for message in messages:
+        m = message.to_dict()
+        messagesDataList.append(m)
+    return messagesDataList
+
+
+def addMedicationToDB(genericName, commertialName, activeIngriant, cunsumption,type, dosage,mainUsage,storage,sideEffects, allergansAndRestrictions):
+    medicationData = {
+        "Generic Name": genericName,
+        "Commertial Name": commertialName,
+        "Active Ingridiant": activeIngriant,
+        "Manner of Cunsumption": cunsumption,
+        "Medication TYpe": type,
+        "Recommended Dosage" : dosage,
+        "Main Usage": mainUsage,
+        "Storage" : storage,
+        "Main Side Effects":sideEffects,
+        "Allergens and\n Restrictions":allergansAndRestrictions
+
+    }
+
+    contact_ref = DB.Config.db.collection("Medications").document(str(commertialName))
+    contact_ref.set(medicationData)
+
+def checkMedicationData(commertialName):
+    medication_ref = DB.Config.db.collection('Medication')
+    medications = medication_ref.get()
+    for medication in medications:
+        m = medication.to_dict()
+        if m['commertialName'] == commertialName:
+            return True
+    return False
+
+def getMedicationData():
+    medicationsDataList = []
+    medications_ref = DB.Config.db.collection('Medications')
+    medications = medications_ref.get()
+    for medication in medications:
+        m = medication.to_dict()
+        medicationsDataList.append(m)
+    return medicationsDataList
