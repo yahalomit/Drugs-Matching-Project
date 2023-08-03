@@ -39,10 +39,20 @@ class AdminWindow(QMainWindow):
         self.actionView_All_Admins_Data.triggered.connect(self.action_View_All_Admins_Data)
         self.actionView_All_Medication_Data.triggered.connect(self.action_View_All_Medication_Data)
         self.actionView_All_Messages.triggered.connect(self.action_View_All_Messages)
+        self.actionAdd_New_Medication.triggered.connect(self.action_Add_New_Medication)
+
 
 
         medicationsNameList = DB.DataBase.getMedicationsNameList()
 
+        for medication in medicationsNameList:
+            self.medComboBox.addItem(medication)
+
+    def action_Add_New_Medication(self):
+        from addMedication import addMedicationWindow
+        self.window = addMedicationWindow()
+        medicationsNameList = DB.DataBase.getMedicationsNameList()
+        self.medComboBox.clear()
         for medication in medicationsNameList:
             self.medComboBox.addItem(medication)
 
@@ -53,6 +63,10 @@ class AdminWindow(QMainWindow):
     def action_View_All_Medication_Data(self):
         from medicationsData import medicationsDataWindow
         self.window = medicationsDataWindow()
+        medicationsNameList = DB.DataBase.getMedicationsNameList()
+        self.medComboBox.clear()
+        for medication in medicationsNameList:
+            self.medComboBox.addItem(medication)
 
 
     def action_View_All_Admins_Data(self):

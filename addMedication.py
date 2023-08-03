@@ -35,6 +35,7 @@ class addMedicationWindow(QMainWindow):
 
         self.typeComboBox.addItem("Capsule")
         self.typeComboBox.addItem("Pill")
+        self.typeComboBox.addItem("Caplets")
         self.typeComboBox.addItem("Tablet")
         self.typeComboBox.addItem("Chewable Tablet")
         self.typeComboBox.addItem("Spry")
@@ -64,7 +65,18 @@ class addMedicationWindow(QMainWindow):
                 DB.DataBase.addMedicationToDB(str(self.genricNameLineEdit.text()), str(self.commertialNameLineEdit.text()), str(self.activeIngridiantLineEdit.text()),
                                                str(self.cunsumptionComboBox.currentText()), str(self.typeComboBox.currentText()), str(self.dosageLineEdit.text()),
                                                str( self.mainUsageLineEdit.text()), str(self.storageLineEdit.text()), str(self.textEdit_3.toPlainText()),
-                                               str(self.textEdit_4.toPlainText()))                
+                                               str(self.textEdit_4.toPlainText()))
+                self.genricNameLineEdit.clear()
+                self.commertialNameLineEdit.clear()
+                self.activeIngridiantLineEdit.clear()
+                self.cunsumptionComboBox.setCurrentIndex(0)
+                self.typeComboBox.setCurrentIndex(0)
+                self.dosageLineEdit.clear()
+                self.mainUsageLineEdit.clear()
+                self.storageLineEdit.clear()
+                self.textEdit_3.clear()
+                self.textEdit_4.clear()
+                               
         else:
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Icon.Critical)

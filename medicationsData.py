@@ -144,6 +144,7 @@ class medicationsDataWindow(QMainWindow):
         if result:
             self.tableWidget.removeRow(current_row)
 
+
 if __name__ == "__main__":
     app = QApplication([])
     window = medicationsDataWindow()

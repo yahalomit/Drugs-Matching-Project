@@ -98,11 +98,11 @@ def getMedicationsData():
 
 def getMedicationsNameList():
     medicationsDataList = []
-    medications_ref = DB.Config.db.collection('Medication')
+    medications_ref = DB.Config.db.collection('Medications')
     medications = medications_ref.get()
     for medications in medications:
         m = medications.to_dict()
-        medicationsDataList.append(m['commertialName'])
+        medicationsDataList.append(m['Commertial Name'])
     return medicationsDataList
 
 def getMedicationInfo(commertialName):
@@ -114,7 +114,7 @@ def getMedicationInfo(commertialName):
         if m['Commertial Name'] == commertialName:
             return {'Commertial Name': m['Commertial Name'], 'Generic Name': m['Generic Name'], 'Active Ingiridiant' : m['Active Ingridiant'],
                                      'Main Usage' : m['Main Usage'], 'Main Side Effects' : m['Main Side Effects'], 'Medication Type' : m['Medication TYpe'],
-                                     'Allergens and Restrictions': m['Allergens and Restrictions'], 'Manner of Cunsumption': m['Manner of Cunsumption'],
+                                     'Allergens and Restrictions': m['Allergens and\n Restrictions'], 'Manner of Cunsumption': m['Manner of Cunsumption'],
                                      'Recommended Dosage' : m['Recommended Dosage'], 'Menner of Storage' : m['Storage']}
     return None
 
