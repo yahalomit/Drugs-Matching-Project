@@ -85,14 +85,14 @@ def getAdminsData():
 
 def getMedicationsData():
     medicationsDataList = []
-    medications_ref = DB.Config.db.collection('Medication')
+    medications_ref = DB.Config.db.collection('Medications')
     medications = medications_ref.get()
     for medications in medications:
         m = medications.to_dict()
-        medicationsDataList.append({'Commertial Name': m['commertialName'], 'Generic Name': m['genericName'], 'Active Ingiridiant' : m['activeIngiridiant'],
-                                     'Main Usage' : m['mainUsage'], 'Main Side Effects' : m['sideEffects'],
-                                     'Allergens and Restrictions': m['allergens'], 'Menner of Cunsumption': m['cunsumption'], 'Recommended Dosage' : m['dosage'],
-                                     'Menner of Storage' : m['storage']})
+        medicationsDataList.append({'Commertial Name': m['Commertial Name'], 'Generic Name': m['Generic Name'], 'Active Ingiridiant' : m['Active Ingridiant'],
+                                     'Main Usage' : m['Main Usage'], 'Main Side Effects' : m['Main Side Effects'], 'Medication Type' : m['Medication TYpe'],
+                                     'Allergens and Restrictions': m['Allergens and\n Restrictions'], 'Menner of Cunsumption': m['Manner of Cunsumption'],
+                                     'Recommended Dosage' : m['Recommended Dosage'], 'Menner of Storage' : m['Storage']})
     return medicationsDataList
 
 
@@ -107,15 +107,15 @@ def getMedicationsNameList():
 
 def getMedicationInfo(commertialName):
     medicationsDataList = []
-    medications_ref = DB.Config.db.collection('Medication')
+    medications_ref = DB.Config.db.collection('Medications')
     medications = medications_ref.get()
     for medications in medications:
         m = medications.to_dict()
-        if m['commertialName'] == commertialName:
-            return {'Commertial Name': m['commertialName'], 'Generic Name': m['genericName'], 'Active Ingiridiant' : m['activeIngiridiant'],
-                                     'Main Usage' : m['mainUsage'], 'Main Side Effects' : m['sideEffects'],
-                                     'Allergens and Restrictions': m['allergens'], 'Menner of Cunsumption': m['cunsumption'], 'Recommended Dosage' : m['dosage'],
-                                     'Menner of Storage' : m['storage']}
+        if m['Commertial Name'] == commertialName:
+            return {'Commertial Name': m['Commertial Name'], 'Generic Name': m['Generic Name'], 'Active Ingiridiant' : m['Active Ingridiant'],
+                                     'Main Usage' : m['Main Usage'], 'Main Side Effects' : m['Main Side Effects'], 'Medication Type' : m['Medication TYpe'],
+                                     'Allergens and Restrictions': m['Allergens and Restrictions'], 'Manner of Cunsumption': m['Manner of Cunsumption'],
+                                     'Recommended Dosage' : m['Recommended Dosage'], 'Menner of Storage' : m['Storage']}
     return None
 
 def saveContactLettersToDB(firstName, lastName, email, phoneNumber, letter, contactPreference):
@@ -129,7 +129,8 @@ def saveContactLettersToDB(firstName, lastName, email, phoneNumber, letter, cont
         "phone number": phoneNumber,
         "content" : letter,
         "contact preference": contactPreference,
-        "Date" : str(today)
+        "Date" : str(today),
+        'identifier': str(contact_id)
     }
 
     contact_ref = DB.Config.db.collection("contact_us").document(str(contact_id))
@@ -181,3 +182,53 @@ def getMedicationData():
         m = medication.to_dict()
         medicationsDataList.append(m)
     return medicationsDataList
+
+'''def deleteRecord(collection, identifier):
+    collection_ref = DB.Config.db.collection(collection)
+    collection = collection_ref.get()
+    for item in collection:
+        c = item.to_dict()
+        if c['identifier'] == identifier:
+            temp = DB.Config.db.collection(collection).document(identifier)
+            item.delete()
+            return True
+    return False
+'''
+
+def deleteRecordMed(collection, identifier):
+    doc_ref = DB.Config.db.collection(collection).document(identifier)
+    doc = doc_ref.get()
+    print(doc)
+    if doc.exists:
+        print(f"Document {doc.id} exists, deleting it now...")
+        doc_ref.delete()
+        print(f"Document {doc.id} deleted successfully.")
+    else:
+        print(f"Document {doc.id} does not exist.")
+
+def deleteRecord(collection, identifier):
+        query = DB.Config.db.collection(collection).where("identifier" ,"==", identifier)
+        docs = query.stream()
+        for doc in docs:
+            doc.reference.delete()
+            return True
+        return False
+
+def delete_admin_record(email):
+
+    user = DB.Config.auth.get_user_by_email(email)
+    user_id = user.uid
+
+    try:
+        # Delete the user authentication data
+        DB.Config.auth.delete_user(user_id)
+
+        # Delete the user record from the "Users" collection
+        users_ref = DB.Config.db.collection("Users").document(user_id)
+        users_ref.delete()
+
+        print("User record and authentication data deleted successfully!")
+        return False
+    except Exception as e:
+        print("Error deleting user record and authentication data:", e)
+        return str(e)

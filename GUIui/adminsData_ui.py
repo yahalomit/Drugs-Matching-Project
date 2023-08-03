@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_adminsDataWindow(object):
     def setupUi(self, adminsDataWindow):
         adminsDataWindow.setObjectName("adminsDataWindow")
-        adminsDataWindow.resize(798, 367)
+        adminsDataWindow.resize(798, 428)
         self.centralwidget = QtWidgets.QWidget(parent=adminsDataWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(parent=self.centralwidget)
@@ -42,6 +42,13 @@ class Ui_adminsDataWindow(object):
         self.exportBtn.setFont(font)
         self.exportBtn.setStyleSheet("background-color: rgb(235, 250, 250);")
         self.exportBtn.setObjectName("exportBtn")
+        self.deleteBtn = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.deleteBtn.setGeometry(QtCore.QRect(20, 350, 761, 51))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteBtn.setFont(font)
+        self.deleteBtn.setStyleSheet("background-color: rgb(235, 250, 250);")
+        self.deleteBtn.setObjectName("deleteBtn")
         adminsDataWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(parent=adminsDataWindow)
         self.statusbar.setObjectName("statusbar")
@@ -55,3 +62,4 @@ class Ui_adminsDataWindow(object):
         adminsDataWindow.setWindowTitle(_translate("adminsDataWindow", "MainWindow"))
         self.label.setText(_translate("adminsDataWindow", "Admins Data"))
         self.exportBtn.setText(_translate("adminsDataWindow", "Export Data to PDF File"))
+        self.deleteBtn.setText(_translate("adminsDataWindow", "Delete Record"))

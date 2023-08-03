@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>798</width>
-    <height>367</height>
+    <height>435</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -87,6 +87,27 @@
     </property>
     <property name="text">
      <string>Export Data to PDF File</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deleteBtn">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>350</y>
+      <width>761</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(235, 250, 250);</string>
+    </property>
+    <property name="text">
+     <string>Delete Record</string>
     </property>
    </widget>
   </widget>

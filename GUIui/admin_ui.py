@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_adminWindow(object):
     def setupUi(self, adminWindow):
         adminWindow.setObjectName("adminWindow")
-        adminWindow.resize(800, 452)
+        adminWindow.resize(800, 458)
         adminWindow.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.centralwidget = QtWidgets.QWidget(parent=adminWindow)
         self.centralwidget.setObjectName("centralwidget")

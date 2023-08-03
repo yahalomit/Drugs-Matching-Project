@@ -175,7 +175,7 @@ class Ui_addMedWindow(object):
         self.label_10.setScaledContents(True)
         self.label_10.setObjectName("label_10")
         self.submitBtn = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.submitBtn.setGeometry(QtCore.QRect(400, 460, 271, 171))
+        self.submitBtn.setGeometry(QtCore.QRect(390, 450, 311, 201))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.submitBtn.setFont(font)
@@ -203,4 +203,4 @@ class Ui_addMedWindow(object):
         self.label_9.setText(_translate("addMedWindow", "Allergens and\n"
 " Restrictions"))
         self.label_11.setText(_translate("addMedWindow", "Medication Type"))
-        self.submitBtn.setText(_translate("addMedWindow", "Sbmit"))
+        self.submitBtn.setText(_translate("addMedWindow", "Submit"))

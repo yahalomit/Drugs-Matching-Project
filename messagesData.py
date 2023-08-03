@@ -30,18 +30,21 @@ class MessagesDataWindow(QMainWindow):
         self.presentData()
 
         self.exportBtn.clicked.connect(self.exportBtn_clicked)
+        self.deleteBtn.clicked.connect(self.deleteBtn_clicked)
+
     
     def presentData(self):
         messagesList = DB.DataBase.getMessages()
 
-        self.tableWidget.setColumnCount(7)
-        self.tableWidget.setHorizontalHeaderLabels(["Fist Name", "Last Name", "Email", "Phone Number", "Contact Preference", "Date", "Message"])
+        self.tableWidget.setColumnCount(8)
+        self.tableWidget.setHorizontalHeaderLabels(["Fist Name", "Last Name", "Email", "Phone Number", "Contact Preference", "Date", "Message", "Identifier"])
         self.tableWidget.setColumnWidth(0, 100)
         self.tableWidget.setColumnWidth(1, 100)
         self.tableWidget.setColumnWidth(2, 150)
         self.tableWidget.setColumnWidth(3, 100)
         self.tableWidget.setColumnWidth(4, 120)
         self.tableWidget.setColumnWidth(5, 100)
+        self.tableWidget.setColumnWidth(6, 200)
         self.tableWidget.setColumnWidth(6, 200)
 
 
@@ -56,6 +59,7 @@ class MessagesDataWindow(QMainWindow):
             self.tableWidget.setItem(i, 4, QTableWidgetItem(message['contact preference']))
             self.tableWidget.setItem(i, 5, QTableWidgetItem(message['Date']))
             self.tableWidget.setItem(i, 6, QTableWidgetItem(message['content']))
+            self.tableWidget.setItem(i, 7, QTableWidgetItem(message['identifier']))
 
             i += 1
 
@@ -122,6 +126,16 @@ class MessagesDataWindow(QMainWindow):
                 print("pdf export complete successfully")
             except Exception as e:
                 print("PDF generation failed: ", e)
+    
+    def deleteBtn_clicked(self):
+        current_row = self.tableWidget.currentRow()
+        identifier = self.tableWidget.item(current_row, 7).text()
+        result = DB.DataBase.deleteRecord("contact_us", identifier)
+        print(identifier)
+        if result:
+            self.tableWidget.removeRow(current_row)
+
+        
 
 if __name__ == "__main__":
     app = QApplication([])

@@ -35,6 +35,8 @@ class adminsDataWindow(QMainWindow):
 
         # activate export
         self.exportBtn.clicked.connect(self.exportPDF)
+        self.deleteBtn.clicked.connect(self.deleteBtn_clicked)
+
 
     def showAdminsData(self):
         adminsDataList = DB.DataBase.getAdminsData()
@@ -119,6 +121,14 @@ class adminsDataWindow(QMainWindow):
             except Exception as e:
                 print("PDF generation failed: ", e)
 
+
+    def deleteBtn_clicked(self):
+        current_row = self.tableWidget.currentRow()
+        identifier = self.tableWidget.item(current_row, 3).text()
+        result = DB.DataBase.delete_admin_record(identifier)
+        print(identifier)
+        if not result:
+            self.tableWidget.removeRow(current_row)
 
 if __name__ == "__main__":
     app = QApplication([])

@@ -365,10 +365,10 @@
    <widget class="QPushButton" name="submitBtn">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>460</y>
-      <width>271</width>
-      <height>171</height>
+      <x>390</x>
+      <y>450</y>
+      <width>311</width>
+      <height>201</height>
      </rect>
     </property>
     <property name="font">
@@ -380,7 +380,7 @@
      <string notr="true">background-color: rgb(204, 235, 207);</string>
     </property>
     <property name="text">
-     <string>Sbmit</string>
+     <string>Submit</string>
     </property>
    </widget>
   </widget>

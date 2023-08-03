@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_medicationsDataWindow(object):
     def setupUi(self, medicationsDataWindow):
         medicationsDataWindow.setObjectName("medicationsDataWindow")
-        medicationsDataWindow.resize(798, 367)
+        medicationsDataWindow.resize(798, 421)
         self.centralwidget = QtWidgets.QWidget(parent=medicationsDataWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(parent=self.centralwidget)
@@ -42,6 +42,13 @@ class Ui_medicationsDataWindow(object):
         self.exportBtn.setFont(font)
         self.exportBtn.setStyleSheet("background-color: rgb(235, 250, 250);")
         self.exportBtn.setObjectName("exportBtn")
+        self.deleteBtn = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.deleteBtn.setGeometry(QtCore.QRect(20, 350, 761, 51))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteBtn.setFont(font)
+        self.deleteBtn.setStyleSheet("background-color: rgb(235, 250, 250);")
+        self.deleteBtn.setObjectName("deleteBtn")
         medicationsDataWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(parent=medicationsDataWindow)
         self.statusbar.setObjectName("statusbar")
@@ -55,3 +62,4 @@ class Ui_medicationsDataWindow(object):
         medicationsDataWindow.setWindowTitle(_translate("medicationsDataWindow", "MainWindow"))
         self.label.setText(_translate("medicationsDataWindow", "Messages"))
         self.exportBtn.setText(_translate("medicationsDataWindow", "Export Data to PDF File"))
+        self.deleteBtn.setText(_translate("medicationsDataWindow", "Delete Record"))

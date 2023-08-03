@@ -33,11 +33,12 @@ class medicationsDataWindow(QMainWindow):
 
         # activate export
         self.exportBtn.clicked.connect(self.exportPDF)
+        self.deleteBtn.clicked.connect(self.deleteBtn_clicked)
 
     def showMedicationsData(self):
         MedicationsDataList = DB.DataBase.getMedicationsData()
 
-        self.tableWidget.setColumnCount(9)
+        self.tableWidget.setColumnCount(10)
         self.tableWidget.setHorizontalHeaderLabels(['Commertial Name', 'Generic Name', 'Active Ingiridiant','Main Usage', 'Main Side Effects',
                                      'Allergens and Restrictions', 'Menner of Cunsumption', 'Recommended Dosage','Menner of Storage'])
         self.tableWidget.setColumnWidth(0, 150)
@@ -49,9 +50,11 @@ class medicationsDataWindow(QMainWindow):
         self.tableWidget.setColumnWidth(6, 150)
         self.tableWidget.setColumnWidth(7, 150)
         self.tableWidget.setColumnWidth(8, 150)
+        self.tableWidget.setColumnWidth(9, 150)
+
 
         self.tableWidget.setRowCount(len(MedicationsDataList))
-
+        
         i = 0
         for medication in MedicationsDataList:
             self.tableWidget.setItem(i, 0, QTableWidgetItem(medication['Commertial Name']))
@@ -61,9 +64,11 @@ class medicationsDataWindow(QMainWindow):
             self.tableWidget.setItem(i, 4, QTableWidgetItem(medication['Main Side Effects']))
             self.tableWidget.setItem(i, 5, QTableWidgetItem(medication['Allergens and Restrictions']))
             self.tableWidget.setItem(i, 6, QTableWidgetItem(medication['Menner of Cunsumption']))
-            self.tableWidget.setItem(i, 7, QTableWidgetItem(medication['Recommended Dosage']))
-            self.tableWidget.setItem(i, 8, QTableWidgetItem(medication['Menner of Storage']))
+            self.tableWidget.setItem(i, 7, QTableWidgetItem(medication['Medication Type']))
+            self.tableWidget.setItem(i, 8, QTableWidgetItem(medication['Recommended Dosage']))
+            self.tableWidget.setItem(i, 9, QTableWidgetItem(medication['Menner of Storage']))
             i += 1
+
 
     def exportPDF(self):
         filename, _ = QFileDialog.getSaveFileName(self, "Export PDF", "", "PDF files (*.pdf)")
@@ -130,6 +135,14 @@ class medicationsDataWindow(QMainWindow):
                 print("pdf export complete successfully")
             except Exception as e:
                 print("PDF generation failed: ", e)
+
+    def deleteBtn_clicked(self):
+        current_row = self.tableWidget.currentRow()
+        CommertialName = self.tableWidget.item(current_row, 0).text()
+        print(CommertialName)
+        result = DB.DataBase.deleteRecordMed("Medications", CommertialName)
+        if result:
+            self.tableWidget.removeRow(current_row)
 
 if __name__ == "__main__":
     app = QApplication([])

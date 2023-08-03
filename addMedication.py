@@ -97,7 +97,7 @@ class addMedicationWindow(QMainWindow):
             selected_text1 = cursor1.selectedText()
             if len(selected_text1) > self.max_line_length:
                 cursor1.removeSelectedText()
-        if any(len(line) > self.max_line_length for line in lines):
+        if any(len(line) > self.max_line_length for line in lines2):
             cursor2.movePosition(QTextCursor.StartOfBlock, QTextCursor.MoveMode.KeepAnchor)
             cursor2.movePosition(QTextCursor.EndOfBlock, QTextCursor.MoveMode.KeepAnchor)
             selected_text2 = cursor2.selectedText()

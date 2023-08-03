@@ -27,7 +27,7 @@ class contactWindow(QMainWindow):
 
 
         self.submitBtn.clicked.connect(self.submitBtn_clicked)
-    
+            
     def submitBtn_clicked(self):
         if str(self.firatNamelLineEdit.text()) and str(self.lastNameLineEdit.text()) and str(self.emailLineEdit.text()) and\
                                             str(self.phoneLineEdit.text()) and str(self.textEdit.toPlainText()):

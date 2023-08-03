@@ -1,6 +1,6 @@
 from PyQt6.QtGui import QPainter
 from PyQt6.QtPrintSupport import QPrinter
-from PyQt6.QtWidgets import QApplication, QPushButton, QWidget, QTextEdit, QVBoxLayout, QFileDialog, QMessageBox
+from PyQt6.QtWidgets import QApplication, QPushButton, QWidget, QTextEdit, QVBoxLayout, QFileDialog, QMessageBox, QMessageBox
 from datetime import date
 
 import firebase_admin
