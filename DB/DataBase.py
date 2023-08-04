@@ -26,7 +26,8 @@ def createNewAdmin(firstName, lastName, ID, email, licenseNumber, password):
         "firstName": firstName,
         "lastName": lastName,
         "ID": ID,
-        "licenseNumber": licenseNumber
+        "licenseNumber": licenseNumber,
+        "email": email
     }
 
     users_ref = DB.Config.db.collection("Users").document(user_id)
@@ -80,6 +81,7 @@ def getAdminsData():
     admins = admins_ref.get()
     for admin in admins:
         a = admin.to_dict()
+        print(a)
         adminDataList.append({'First Name': a['firstName'], 'Last Name': a['lastName'], 'ID' : a['ID'], 'Email': a['email'], 'License Number': a['licenseNumber']})
     return adminDataList
 
@@ -183,18 +185,6 @@ def getMedicationData():
         medicationsDataList.append(m)
     return medicationsDataList
 
-'''def deleteRecord(collection, identifier):
-    collection_ref = DB.Config.db.collection(collection)
-    collection = collection_ref.get()
-    for item in collection:
-        c = item.to_dict()
-        if c['identifier'] == identifier:
-            temp = DB.Config.db.collection(collection).document(identifier)
-            item.delete()
-            return True
-    return False
-'''
-
 def deleteRecordMed(collection, identifier):
     doc_ref = DB.Config.db.collection(collection).document(identifier)
     doc = doc_ref.get()
@@ -232,3 +222,22 @@ def delete_admin_record(email):
     except Exception as e:
         print("Error deleting user record and authentication data:", e)
         return str(e)
+    
+
+def metchMedications(commertialName1, commertialName2):
+    doc_ref1 = DB.Config.db.collection("Medications").document(commertialName1)
+    doc_ref2 = DB.Config.db.collection("Medications").document(commertialName2)
+    doc1 = doc_ref1.get().to_dict()
+    doc2 = doc_ref2.get().to_dict()
+    contradictions_ref = DB.Config.db.collection("contradiction")
+    contradictions = contradictions_ref.get()
+    if 'Charcoal activated' in doc2['Active Ingridiant'] or  'Charcoal activated' in doc1['Active Ingridiant']:
+        doc_ref = DB.Config.db.collection('contradiction').document('9rnwtlJddEcXY0ECw9fr')
+        doc = doc_ref.get().to_dict()
+        return doc['contradiction']
+    for contradiction in contradictions:
+        c = contradiction.to_dict()
+        if  ( c['component1'] in doc1['Active Ingridiant'] and c['component2'] in doc2['Active Ingridiant'])\
+            or (c['component1'] in doc2['Active Ingridiant'] and c['component2'] in doc1['Active Ingridiant']):
+            return c['contradiction'] 
+    return None
