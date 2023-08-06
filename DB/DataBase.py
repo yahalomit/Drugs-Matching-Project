@@ -241,3 +241,12 @@ def metchMedications(commertialName1, commertialName2):
             or (c['component1'] in doc2['Active Ingridiant'] and c['component2'] in doc1['Active Ingridiant']):
             return c['contradiction'] 
     return None
+
+def getMessageData(identifier):
+    messages_ref = DB.Config.db.collection('contact_us')
+    messages = messages_ref.get()
+    for message in messages:
+        m = message.to_dict()
+        if m["identifier"] == identifier:
+            return m
+    return None

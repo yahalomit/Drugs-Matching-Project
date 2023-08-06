@@ -5,19 +5,19 @@ import os
 import sys
 import time
 
-from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QPushButton, QComboBox, QMessageBox, \
-    QFileDialog, QLineEdit
-from PyQt6.QtCore import Qt,QRunnable, QThreadPool, QDate, QTime, QDateTime, QFileInfo
-from PyQt6 import uic, QtGui
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QFileDialog, QTableWidgetItem, QMessageBox
+from PyQt6 import uic
+
+
 import DB.DataBase
 
-from reportlab.lib.pagesizes import letter, landscape, A1
+from reportlab.lib.pagesizes import landscape, A1
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Spacer
 from reportlab.platypus.para import Paragraph
+import textwrap
 
 class medicationsDataWindow(QMainWindow):
     def __init__(self):
@@ -34,28 +34,23 @@ class medicationsDataWindow(QMainWindow):
         # activate export
         self.exportBtn.clicked.connect(self.exportPDF)
         self.deleteBtn.clicked.connect(self.deleteBtn_clicked)
+        self.viewBtn.clicked.connect(self.viewBtn_clicked)
+
 
     def showMedicationsData(self):
+        
         MedicationsDataList = DB.DataBase.getMedicationsData()
 
         self.tableWidget.setColumnCount(10)
         self.tableWidget.setHorizontalHeaderLabels(['Commertial Name', 'Generic Name', 'Active Ingiridiant','Main Usage', 'Main Side Effects',
                                      'Allergens and Restrictions', 'Menner of Cunsumption', 'Recommended Dosage','Menner of Storage'])
-        self.tableWidget.setColumnWidth(0, 150)
-        self.tableWidget.setColumnWidth(1, 150)
-        self.tableWidget.setColumnWidth(2, 150)
-        self.tableWidget.setColumnWidth(3, 150)
-        self.tableWidget.setColumnWidth(4, 150)
-        self.tableWidget.setColumnWidth(5, 150)
-        self.tableWidget.setColumnWidth(6, 150)
-        self.tableWidget.setColumnWidth(7, 150)
-        self.tableWidget.setColumnWidth(8, 150)
-        self.tableWidget.setColumnWidth(9, 150)
+        for i in range(10):
+            self.tableWidget.setColumnWidth(i, 150)
 
 
         self.tableWidget.setRowCount(len(MedicationsDataList))
         
-        i = 0
+        i=0
         for medication in MedicationsDataList:
             self.tableWidget.setItem(i, 0, QTableWidgetItem(medication['Commertial Name']))
             self.tableWidget.setItem(i, 1, QTableWidgetItem(medication['Generic Name']))
@@ -67,9 +62,9 @@ class medicationsDataWindow(QMainWindow):
             self.tableWidget.setItem(i, 7, QTableWidgetItem(medication['Medication Type']))
             self.tableWidget.setItem(i, 8, QTableWidgetItem(medication['Recommended Dosage']))
             self.tableWidget.setItem(i, 9, QTableWidgetItem(medication['Menner of Storage']))
-            i += 1
+            i+=1
 
-
+    
     def exportPDF(self):
         filename, _ = QFileDialog.getSaveFileName(self, "Export PDF", "", "PDF files (*.pdf)")
         if filename:
@@ -106,8 +101,24 @@ class medicationsDataWindow(QMainWindow):
                             ]
                     data.append(row)
 
-                table = Table(data)
-                table.colWidths = [100, 70, 80, 100, 80, 80, 100, 80]
+                wrapped_data = []
+                for row in data:
+                    wrapped_row = []
+                    for cell in row:
+                        wrapped_cell = textwrap.wrap(cell, 300//7)
+                        wrapped_row.append('\n'.join(wrapped_cell))
+                    wrapped_data.append(wrapped_row)
+
+
+                # Calculate the available page width
+                available_page_width = pdf.width
+
+                # Calculate the width for each column based on the available page width
+                num_columns = len(header)
+                column_width = available_page_width / num_columns
+
+                table = Table(wrapped_data, colWidths=[column_width]*num_columns)  # Adjust the width of each column
+
 
                 # Apply table styles
                 table.setStyle(
@@ -133,8 +144,11 @@ class medicationsDataWindow(QMainWindow):
 
                 pdf.build(pdf_elements)
                 print("pdf export complete successfully")
+
             except Exception as e:
                 print("PDF generation failed: ", e)
+
+
 
     def deleteBtn_clicked(self):
         current_row = self.tableWidget.currentRow()
@@ -143,6 +157,21 @@ class medicationsDataWindow(QMainWindow):
         result = DB.DataBase.deleteRecordMed("Medications", CommertialName)
         if result:
             self.tableWidget.removeRow(current_row)
+    
+    def viewBtn_clicked(self):
+        try:
+            current_row = self.tableWidget.currentRow()
+            CommertialName = self.tableWidget.item(current_row, 0).text()
+            from generalInfo import generalInfoWindow
+            self.window = generalInfoWindow(CommertialName)
+
+        except Exception as e:
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Icon.Critical)
+            msgBox.setText("Please select row")
+            msgBox.setWindowTitle("Something went wrong")
+            msgBox.exec()
+            print("no row selected: ", e)
 
 
 if __name__ == "__main__":

@@ -15,6 +15,7 @@ from reportlab.lib.units import inch
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Spacer
 from reportlab.platypus.para import Paragraph
+import textwrap
 
 import DB.DataBase
 
@@ -31,6 +32,7 @@ class MessagesDataWindow(QMainWindow):
 
         self.exportBtn.clicked.connect(self.exportBtn_clicked)
         self.deleteBtn.clicked.connect(self.deleteBtn_clicked)
+        self.viewBtn.clicked.connect(self.viewBtn_clicked)
 
     
     def presentData(self):
@@ -97,8 +99,23 @@ class MessagesDataWindow(QMainWindow):
                             ]
                     data.append(row)
 
-                table = Table(data)
-                table.colWidths = [100, 70, 80, 100, 80, 80, 100, 80]
+                wrapped_data = []
+                for row in data:
+                    wrapped_row = []
+                    for cell in row:
+                        wrapped_cell = textwrap.wrap(cell, 300//20)
+                        wrapped_row.append('\n'.join(wrapped_cell))
+                    wrapped_data.append(wrapped_row)
+
+
+                # Calculate the available page width
+                available_page_width = pdf.width
+
+                # Calculate the width for each column based on the available page width
+                num_columns = len(header)
+                column_width = available_page_width / num_columns
+
+                table = Table(wrapped_data, colWidths=[column_width]*num_columns)  # Adjust the width of each column
 
                 # Apply table styles
                 table.setStyle(
@@ -134,6 +151,21 @@ class MessagesDataWindow(QMainWindow):
         print(identifier)
         if result:
             self.tableWidget.removeRow(current_row)
+
+    def viewBtn_clicked(self):
+        try:
+            current_row = self.tableWidget.currentRow()
+            identifier = self.tableWidget.item(current_row, 7).text()
+            from messageView import messageViewWindow
+            self.window = messageViewWindow(identifier)
+
+        except Exception as e:
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Icon.Critical)
+            msgBox.setText("Please select row")
+            msgBox.setWindowTitle("Something went wrong")
+            msgBox.exec()
+            print("no row selected: ", e)
 
         
 

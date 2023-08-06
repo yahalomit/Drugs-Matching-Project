@@ -47,14 +47,26 @@ class contactWindow(QMainWindow):
                 if self.emailCheckBox.isChecked():
                     DB.DataBase.saveContactLettersToDB(str(self.firatNamelLineEdit.text()),str(self.lastNameLineEdit.text()),str(self.emailLineEdit.text()),
                                                         str(self.phoneLineEdit.text()),str(self.textEdit.toPlainText()), 'email')
+                    msgBox = QMessageBox()
+                    msgBox.setIcon(QMessageBox.Icon.Information)
+                    msgBox.setText("Message sent!")
+                    msgBox.setWindowTitle("Greate Success")
+                    msgBox.exec()
+                    self.close()   
                 elif self.phoneCheckBox.isChecked():
                     DB.DataBase.saveContactLettersToDB(str(self.firatNamelLineEdit.text()),str(self.lastNameLineEdit.text()),str(self.emailLineEdit.text()),
                                     str(self.phoneLineEdit.text()),str(self.textEdit.toPlainText()), 'phone')
+                    msgBox = QMessageBox()
+                    msgBox.setIcon(QMessageBox.Icon.Information)
+                    msgBox.setText("Message sent!")
+                    msgBox.setWindowTitle("Greate Success")
+                    msgBox.exec()
+                    self.close()                       
                 else:
                     DB.DataBase.saveContactLettersToDB(str(self.firatNamelLineEdit.text()),str(self.lastNameLineEdit.text()),str(self.emailLineEdit.text()),
                                 str(self.phoneLineEdit.text()),str(self.textEdit.toPlainText()), 'none')
                     msgBox = QMessageBox()
-                    msgBox.setIcon(QMessageBox.Icon.Critical)
+                    msgBox.setIcon(QMessageBox.Icon.Information)
                     msgBox.setText("Message sent!")
                     msgBox.setWindowTitle("Greate Success")
                     msgBox.exec()
