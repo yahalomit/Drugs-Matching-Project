@@ -1,7 +1,6 @@
 # Yahalomit Levi 203956321
 # Nisan Fichman 204470199
 
-from datetime import datetime
 import os
 import sys
 import time
@@ -19,80 +18,38 @@ from reportlab.platypus.para import Paragraph
 
 import DB.DataBase
 
-class AdminWindow(QMainWindow):
-    def __init__(self, adminFullName):
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+class generalInfoWindow(QMainWindow):
+    def __init__(self, medNAme):
         super().__init__()
-        AdminFullName = adminFullName
         # loading the ui file with uic module
         script_path = os.path.dirname(os.path.realpath(__file__))
-        UI_File_Path = os.path.join(script_path, "GUIui/admin.ui")
+        UI_File_Path = os.path.join(script_path, resource_path("GUIui/generalInfo.ui"))
         uic.loadUi(UI_File_Path, self)
         self.show()
 
-        self.helloLable.setText("Hello " + AdminFullName)
+        self.medName = medNAme
 
-        self.logoutBtn.clicked.connect(self.clicked_logout)
-        self.viewInfoButton.clicked.connect(self.viewInfoButton_clicked)
+        self.label.setText(medNAme)
         self.exportBtn.clicked.connect(self.exportBtn_clicked)
-
-        self.actionCreate_new_Admin.triggered.connect(self.action_Create_new_Admin)
-        self.actionView_All_Admins_Data.triggered.connect(self.action_View_All_Admins_Data)
-        self.actionView_All_Medication_Data.triggered.connect(self.action_View_All_Medication_Data)
-        self.actionView_All_Messages.triggered.connect(self.action_View_All_Messages)
-        self.actionAdd_New_Medication.triggered.connect(self.action_Add_New_Medication)
-
-
-
-        medicationsNameList = DB.DataBase.getMedicationsNameList()
-
-        for medication in medicationsNameList:
-            self.medComboBox.addItem(medication)
-
-    def action_Add_New_Medication(self):
-        from addMedication import addMedicationWindow
-        self.window = addMedicationWindow()
-        medicationsNameList = DB.DataBase.getMedicationsNameList()
-        self.medComboBox.clear()
-        for medication in medicationsNameList:
-            self.medComboBox.addItem(medication)
-
-    def action_View_All_Messages(self):
-        from messagesData import MessagesDataWindow
-        self.window = MessagesDataWindow()
-
-    def action_View_All_Medication_Data(self):
-        from medicationsData import medicationsDataWindow
-        self.window = medicationsDataWindow()
-        medicationsNameList = DB.DataBase.getMedicationsNameList()
-        self.medComboBox.clear()
-        for medication in medicationsNameList:
-            self.medComboBox.addItem(medication)
-
-
-    def action_View_All_Admins_Data(self):
-        from adminsData import adminsDataWindow
-        self.window = adminsDataWindow()
-
-    def clicked_logout(self):
-        from login import LoginWindow
-        self.window = LoginWindow()
-        self.close()
-
-    def action_Create_new_Admin(self):
-        from createAdmin import createAdminWindow
-        self.window = createAdminWindow()
-
-    def viewInfoButton_clicked(self):
-        self.textBrowser.clear()
-        information = DB.DataBase.getMedicationInfo(str(self.medComboBox.currentText()))
+    
+        information = DB.DataBase.getMedicationInfo(medNAme)
         if information != None:
             for info in information:
                 self.textBrowser.append(info + " : " + information[info])
 
     def exportBtn_clicked(self):
         filename, _ = QFileDialog.getSaveFileName(self, "Export PDF", "", "PDF files (*.pdf)")
-        medName = str(self.medComboBox.currentText())
-        information = DB.DataBase.getMedicationInfo(str(self.medComboBox.currentText()))
+        information = DB.DataBase.getMedicationInfo(self.medName)
         if filename:
             try:
                 pdf = SimpleDocTemplate(filename, pagesize=landscape(A4))
@@ -100,7 +57,7 @@ class AdminWindow(QMainWindow):
                 title_style = styles['Heading1']
 
                 # Create the title paragraph
-                title = Paragraph(medName, title_style)
+                title = Paragraph(self.medName, title_style)
 
                 # Add the title paragraph and a spacer to the document
                 pdf_elements = [title, Spacer(1, 24)]
@@ -110,7 +67,7 @@ class AdminWindow(QMainWindow):
                 header = ["Blood Type", "Donation Date", "First Name", "Last Name", "ID"]
                 data = [header]
 
-                record_list = DB.DataBase.getMedicationInfo(medName)
+                record_list = DB.DataBase.getMedicationInfo(self.medName)
 
                 # Create a list to hold the table data
                 table_data = []
@@ -143,8 +100,9 @@ class AdminWindow(QMainWindow):
             except Exception as e:
                 print("PDF generation failed: ", e)
 
+
 if __name__ == "__main__":
     app = QApplication([])
-    window = AdminWindow('Shay Ginsburg')
+    window = generalInfoWindow('acamol')
     window.show()
     app.exec()

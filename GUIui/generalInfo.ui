@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>adminsDataWindow</class>
- <widget class="QMainWindow" name="adminsDataWindow">
+ <class>generalInfoWindow</class>
+ <widget class="QMainWindow" name="generalInfoWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>798</width>
-    <height>428</height>
+    <width>645</width>
+    <height>367</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: white</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>10</y>
-      <width>771</width>
+      <width>601</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>24</pointsize>
+      <pointsize>22</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Admins Data</string>
+     <string/>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -38,10 +41,10 @@
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>70</y>
-      <width>781</width>
-      <height>211</height>
+      <x>20</x>
+      <y>80</y>
+      <width>601</width>
+      <height>191</height>
      </rect>
     </property>
     <property name="widgetResizable">
@@ -52,17 +55,17 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>779</width>
-       <height>209</height>
+       <width>599</width>
+       <height>189</height>
       </rect>
      </property>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTextBrowser" name="textBrowser">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>781</width>
-        <height>211</height>
+        <width>601</width>
+        <height>191</height>
        </rect>
       </property>
      </widget>
@@ -72,42 +75,21 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>290</y>
-      <width>761</width>
-      <height>51</height>
+      <y>280</y>
+      <width>601</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>16</pointsize>
+      <pointsize>18</pointsize>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(235, 250, 250);</string>
+     <string notr="true">background-color: rgb(225, 247, 240);</string>
     </property>
     <property name="text">
-     <string>Export Data to PDF File</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="deleteBtn">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>350</y>
-      <width>761</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(235, 250, 250);</string>
-    </property>
-    <property name="text">
-     <string>Delete Record</string>
+     <string>Export Information as Pdf</string>
     </property>
    </widget>
   </widget>

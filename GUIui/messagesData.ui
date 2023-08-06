@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>adminsDataWindow</class>
- <widget class="QMainWindow" name="adminsDataWindow">
+ <class>medicationsDataWindow</class>
+ <widget class="QMainWindow" name="medicationsDataWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>798</width>
-    <height>428</height>
+    <height>497</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Admins Data</string>
+     <string>Messages</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -108,6 +108,27 @@
     </property>
     <property name="text">
      <string>Delete Record</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="viewBtn">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>410</y>
+      <width>761</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(235, 250, 250);</string>
+    </property>
+    <property name="text">
+     <string>View Current Letter</string>
     </property>
    </widget>
   </widget>

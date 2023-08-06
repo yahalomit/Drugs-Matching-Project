@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Qt\bioFinal\GUIui\medicationsData.ui'
+# Form implementation generated from reading ui file 'c:\Qt\bioFinal\GUIui\messagesData.ui'
 #
 # Created by: PyQt6 UI code generator 6.5.1
 #
@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_medicationsDataWindow(object):
     def setupUi(self, medicationsDataWindow):
         medicationsDataWindow.setObjectName("medicationsDataWindow")
-        medicationsDataWindow.resize(798, 491)
+        medicationsDataWindow.resize(798, 497)
         self.centralwidget = QtWidgets.QWidget(parent=medicationsDataWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(parent=self.centralwidget)
@@ -67,7 +67,7 @@ class Ui_medicationsDataWindow(object):
     def retranslateUi(self, medicationsDataWindow):
         _translate = QtCore.QCoreApplication.translate
         medicationsDataWindow.setWindowTitle(_translate("medicationsDataWindow", "MainWindow"))
-        self.label.setText(_translate("medicationsDataWindow", "Medications Data"))
+        self.label.setText(_translate("medicationsDataWindow", "Messages"))
         self.exportBtn.setText(_translate("medicationsDataWindow", "Export Data to PDF File"))
         self.deleteBtn.setText(_translate("medicationsDataWindow", "Delete Record"))
-        self.viewBtn.setText(_translate("medicationsDataWindow", "View Current Mediction data"))
+        self.viewBtn.setText(_translate("medicationsDataWindow", "View Current Letter"))

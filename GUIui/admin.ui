@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>452</height>
+    <height>458</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -187,7 +187,7 @@
     </property>
     <addaction name="actionView_All_Admins_Data"/>
     <addaction name="actionView_All_Medication_Data"/>
-    <addaction name="actionView_Messages"/>
+    <addaction name="actionView_All_Messages"/>
    </widget>
    <addaction name="menuEdit_data"/>
    <addaction name="menuAccess_Data"/>
@@ -213,9 +213,9 @@
     <string>View All Medication Data</string>
    </property>
   </action>
-  <action name="actionView_Messages">
+  <action name="actionView_All_Messages">
    <property name="text">
-    <string>View Messages</string>
+    <string>View All Messages</string>
    </property>
   </action>
  </widget>
