@@ -12,17 +12,27 @@ from PyQt6 import uic, QtGui
 from PyQt6.QtGui import QPixmap
 import DB.DataBase
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 
 class LoginWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         # loading the ui file with uic module
         script_path = os.path.dirname(os.path.realpath(__file__))
-        UI_File_Path = os.path.join(script_path, "GUIui/login.ui")
+        UI_File_Path = os.path.join(script_path, resource_path("GUIui/login.ui"))
         uic.loadUi(UI_File_Path, self)
         self.show()
 
-        pixmap = QPixmap("media/pharmeci-logo.png")
+        pixmap = QPixmap(resource_path("media/pharmeci-logo.png"))
         self.label_3.setPixmap(pixmap)
 
         self.passwordLineEdit.setEchoMode(QLineEdit.EchoMode.Password)

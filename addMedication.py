@@ -12,12 +12,22 @@ from PyQt6.QtGui import QPixmap, QTextCursor
 
 import DB.DataBase
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 class addMedicationWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         # loading the ui file with uic module
         script_path = os.path.dirname(os.path.realpath(__file__))
-        UI_File_Path = os.path.join(script_path, "GUIui/addMedication.ui")
+        UI_File_Path = os.path.join(script_path, resource_path("GUIui/addMedication.ui"))
         uic.loadUi(UI_File_Path, self)
         self.show()
 
@@ -46,7 +56,7 @@ class addMedicationWindow(QMainWindow):
         self.typeComboBox.addItem("Patches")
         self.typeComboBox.addItem("Suspension")
 
-        pixmap = QPixmap("media/drugs2.jpg")
+        pixmap = QPixmap(resource_path("media/drugs2.jpg"))
         self.label_10.setPixmap(pixmap)
 
         self.submitBtn.clicked.connect(self.submitBtn_clicked)

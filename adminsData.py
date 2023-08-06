@@ -19,13 +19,22 @@ from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Spacer
 from reportlab.platypus.para import Paragraph
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 class adminsDataWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         # loading the ui file with uic module
         script_path = os.path.dirname(os.path.realpath(__file__))
-        UI_File_Path = os.path.join(script_path, "GUIui/adminsData.ui")
+        UI_File_Path = os.path.join(script_path, resource_path("GUIui/adminsData.ui"))
         uic.loadUi(UI_File_Path, self)
         self.show()
 

@@ -14,12 +14,22 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Spacer
 from reportlab.platypus.para import Paragraph
 import textwrap
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 class messageViewWindow(QMainWindow):
     def __init__(self, identifier):
         super().__init__()
         # loading the ui file with uic module
         script_path = os.path.dirname(os.path.realpath(__file__))
-        UI_File_Path = os.path.join(script_path, "GUIui/messageView.ui")
+        UI_File_Path = os.path.join(script_path, resource_path("GUIui/messageView.ui"))
         uic.loadUi(UI_File_Path, self)
         self.show()
 
